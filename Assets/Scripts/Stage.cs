@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
-    //ÇÊ¿ä ¼Ò½º ºÒ·¯¿À±â
+    //ï¿½Ê¿ï¿½ ï¿½Ò½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
     [Header("Source")]
-    public GameObject tilePrefab; // Å¸ÀÏ ÇÁ¸®Æé °¡Á®¿À±â
+    public GameObject tilePrefab; // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public Transform backgroundNode;
     public Transform boardNode;
     public Transform tetrominoNode;
@@ -18,65 +18,83 @@ public class Stage : MonoBehaviour
     public Text line;
 
     private int indexVal = -1;
-    //inspector¿¡Ç¥±âµÇ´Â º¯¼öµé ¼±¾ð
+    //inspectorï¿½ï¿½Ç¥ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
     [Header("Setting")]
     [Range(4, 40)]
     public int boardWidth = 10;
-    //³ôÀÌ ¼³Á¤
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     [Range(5, 20)]
     public int boardHeight = 20;
-    //¶³¾îÁö´Â ¼Óµµ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
     public float fallCycle = 1.0f;
-    //À§Ä¡ º¸Á¤
+    //ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
     public float offset_x = 0f;
     public float offset_y = 0f;
 
     private int halfWidth;
     private int halfHeight;
 
-    private float nextFallTime; // ´ÙÀ½¿¡ Å×Æ®·Î¹Ì³ë°¡ ¶³¾îÁú ½Ã°£À» ÀúÀå
+    private float nextFallTime; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Î¹Ì³ë°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    // UI °ü·Ã º¯¼ö
+    // UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private int scoreVal = 0;
     private int levelVal = 1;
     private int lineVal;
 
 
-    private void Start() // °ÔÀÓÀÌ ½ÃÀÛµÇ°í ÇÑ ¹ø¸¸ ½ÇÇà
+    private void Start() // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
-        // °ÔÀÓ ½ÃÀÛ½Ã text ¼³Á¤
-        lineVal = levelVal * 2;   // ÀÓ½Ã ·¹º§ µðÀÚÀÎ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û½ï¿½ text ï¿½ï¿½ï¿½ï¿½
+        lineVal = levelVal * 2;   // ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         score.text = "" + scoreVal;
         level.text = "" + levelVal;
         line.text = "" + lineVal;
         gameoverPanel.SetActive(false);
-        halfWidth = Mathf.RoundToInt(boardWidth * 0.5f);    // ³ÊºñÀÇ Áß°£°ª ¼³Á¤ÇØÁÖ±â
-        halfHeight = Mathf.RoundToInt(boardHeight * 0.5f);   // ³ôÀÌÀÇ Áß°£°ª ¼³Á¤ÇØÁÖ±â
+        halfWidth = Mathf.RoundToInt(boardWidth * 0.5f);    // ï¿½Êºï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+        halfHeight = Mathf.RoundToInt(boardHeight * 0.5f);   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 
-        nextFallTime = Time.time + fallCycle;   // ´ÙÀ½¿¡ Å×Æ®·Î¹Ì³ë°¡ ¶³¾îÁú ½Ã°£ ¼³Á¤
+        nextFallTime = Time.time + fallCycle;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Î¹Ì³ë°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        CreateBackground(); // ¹è°æ ¸¸µé±â
-        // ³ôÀÌ¸¸Å­ Çà ³ëµå ¸¸µé¾îÁÖ±â
+        CreateBackground(); // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½Ì¸ï¿½Å­ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
         for (int i = 0; i < boardHeight; ++i)
         {
-            // ToStringÀ» ÀÌ¿ëÇÏ¿© ¿ÀºêÁ§Æ® ÀÌ¸§ ¼³Á¤
+            // ToStringï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
             var col = new GameObject((boardHeight - i - 1).ToString());
-            // À§Ä¡¼³Á¤ -> Çà À§Ä¡ÀÇ ³ôÀÌ, °¡·Î Áß¾Ó
+            // ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ß¾ï¿½
             col.transform.position = new Vector3(0, halfHeight - i, 0);
-            // º¸µå ³ëµåÀÇ ÀÚ½ÄÀ¸·Î ¼³Á¤
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             col.transform.parent = boardNode;
         }
-        CreateTetromino(); // Å×Æ®·Î¹Ì³ë ¸¸µé±â
+        CreateTetromino(); // ï¿½ï¿½Æ®ï¿½Î¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
+    public bool longtouch_check = false;
+    public bool lnt_enter = false;
     public bool leftbtn = false;
     public bool rightbtn = false;
     public bool downbtn = false;
     public bool rotbtn = false;
     public bool restart = false;
+    private float touchtime = 0;
+    private float time_check = 0.8f;
 
+    public void longinf()
+    {
+        Debug.Log("longin");
+        longtouch_check = true;
+    }
+    public void longout()
+    {
+        Debug.Log("longout");
+        longtouch_check = false;
+        touchtime = 0;
+    }
+    public void longtouch_checkf()
+    {   
+    }
     public void leftbtnf()
     {
         leftbtn = true;
@@ -97,7 +115,7 @@ public class Stage : MonoBehaviour
         restart = true;
     }
 
-    void Update()   // ¸Å ÇÁ·¹ÀÓ¸¶´Ù ½ÇÇà
+    void Update()   // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         if (Application.platform == RuntimePlatform.Android)
         {
@@ -106,7 +124,7 @@ public class Stage : MonoBehaviour
                 Application.Quit();
             }
         }
-        // °ÔÀÓ¿À¹ö Ã³¸®
+        // ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         if (gameoverPanel.activeSelf)
         {
             if (Input.GetKeyDown("r")||restart)
@@ -115,14 +133,14 @@ public class Stage : MonoBehaviour
                 SceneManager.LoadScene(0);
             }
         }
-        // °ÔÀÓ Ã³¸®
+        // ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         else
         {
-            //ÃÊ±âÈ­
-            Vector3 moveDir = Vector3.zero; //ÀÌµ¿ ¿©ºÎ ÀúÀå¿ë
-            bool isRotate = false;  // È¸Àü ¿©ºÎ ÀúÀå¿ë
+            //ï¿½Ê±ï¿½È­
+            Vector3 moveDir = Vector3.zero; //ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+            bool isRotate = false;  // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
-            //°¢ Å°¿¡ µû¶ó ÀÌµ¿ ¿©ºÎ È¤Àº È¸Àü ¿©ºÎ¸¦ ¼³Á¤ÇØÁÝ´Ï´Ù.
+            //ï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ È¤ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´Ï´ï¿½.
 
             if (Input.GetKeyDown("a")||leftbtn)
             {
@@ -143,39 +161,49 @@ public class Stage : MonoBehaviour
             }
             else if (Input.GetKeyDown("s")||downbtn)
             {
+                Debug.Log("keydown");
                 moveDir.y = -1;
                 downbtn = false;
             }
 
             if (Input.GetKeyDown("space"))
             {
-                // Å×Æ®·Î¹Ì³ë°¡ ¹Ù´Ú¿¡ ´êÀ» ¶§±îÁö ¾Æ·¡·Î ÀÌµ¿
-                while (MoveTetromino(Vector3.down, false))
+                MoveTetromino(Vector3.down, false);
+            }
+            else if(longtouch_check){
+                touchtime += Time.deltaTime;
+                Debug.Log(touchtime);
+                if(touchtime >= time_check)
                 {
+                    while (MoveTetromino(Vector3.down, false))
+                    {
+                    }
+                    touchtime = 0;
+                    longtouch_check = false;
                 }
             }
 
             if (Input.GetKeyDown("r")||restart)
             {
-                // SceneManagerÀ» ÀÌ¿ëÇÏ¿© °ÔÀÓ Àç½ÃÀÛÇÏ±â
+                // SceneManagerï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
                 restart = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
 
 
-            // ¾Æ¹«·± Å° ÀÔ·ÂÀÌ ¾øÀ»°æ¿ì Tetromino ¿òÁ÷ÀÌÁö ¾Ê°ÔÇÏ±â
+            // ï¿½Æ¹ï¿½ï¿½ï¿½ Å° ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Tetromino ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ï±ï¿½
             if (moveDir != Vector3.zero || isRotate)
             {
                 MoveTetromino(moveDir, isRotate);
             }
-            // ¾Æ·¡·Î ¶³¾îÁö´Â °æ¿ì´Â °­Á¦·Î ÀÌµ¿½ÃÅµ´Ï´Ù.
+            // ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Åµï¿½Ï´ï¿½.
             if (Time.time > nextFallTime)
             {
-                nextFallTime = Time.time + fallCycle;   // ´ÙÀ½ ¶³¾îÁú ½Ã°£ Àç¼³Á¤
-                moveDir.y = -1; //  ¾Æ·¡·Î ÇÑ Ä­ ÀÌµ¿
-                isRotate = false;   // °­Á¦·Î ÀÌµ¿½Ã È¸Àü ¾øÀ½
+                nextFallTime = Time.time + fallCycle;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ç¼³ï¿½ï¿½
+                moveDir.y = -1; //  ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä­ ï¿½Ìµï¿½
+                isRotate = false;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-                // ¾Æ¹«·± Å° ÀÔ·ÂÀÌ ¾øÀ»°æ¿ì Tetromino ¿òÁ÷ÀÌÁö ¾Ê°ÔÇÏ±â
+                // ï¿½Æ¹ï¿½ï¿½ï¿½ Å° ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Tetromino ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ï±ï¿½
                 if (moveDir != Vector3.zero || isRotate)
                 {
                     MoveTetromino(moveDir, isRotate);
@@ -184,35 +212,35 @@ public class Stage : MonoBehaviour
         }
     }
 
-    // ÀÌµ¿ÀÌ °¡´ÉÇÑÁö Ã¼Å©ÈÄ True or False ¹ÝÈ¯ÇÏ´Â ¸Þ¼­µå
+    // ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ True or False ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     bool MoveTetromino(Vector3 moveDir, bool isRotate)
     {
-        //ÀÌµ¿ or È¸Àü ºÒ°¡½Ã µ¹¾Æ°¡±â À§ÇÑ °ª ÀúÀå
+        //ï¿½Ìµï¿½ or È¸ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector3 oldPos = tetrominoNode.transform.position;
         Quaternion oldRot = tetrominoNode.transform.rotation;
 
-        //ÀÌµ¿ & È¸Àü ÇÏ±â
+        //ï¿½Ìµï¿½ & È¸ï¿½ï¿½ ï¿½Ï±ï¿½
         tetrominoNode.transform.position += moveDir;
         if (isRotate)
         {
-            //ÇöÀç Å×Æ®·Î¹Ì³ë ³ëµå¿¡ 90µµ È¸ÀüÀ» ´õÇØ ÁÜ.
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Î¹Ì³ï¿½ ï¿½ï¿½å¿¡ 90ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
             tetrominoNode.transform.rotation *= Quaternion.Euler(0, 0, 90);
         }
 
-        // ÀÌµ¿ ºÒ°¡½Ã ÀÌÀü À§Ä¡, È¸Àü À¸·Î µ¹¾Æ°¡±â
+        // ï¿½Ìµï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡, È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½
         if (!CanMoveTo(tetrominoNode))
         {
             tetrominoNode.transform.position = oldPos;
             tetrominoNode.transform.rotation = oldRot;
 
-            //¹Ù´Ú¿¡ ´ê¾Ò´Ù´Â ÀÇ¹Ì = ÀÌµ¿ ºÒ°¡ÇÏ°í ÇöÀç ¾Æ·¡·Î ¶³¾îÁö°í ÀÖ´Â »óÈ²
+            //ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½Ò´Ù´ï¿½ ï¿½Ç¹ï¿½ = ï¿½Ìµï¿½ ï¿½Ò°ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½È²
             if ((int)moveDir.y == -1 && (int)moveDir.x == 0 && isRotate == false)
             {
                 AddToBoard(tetrominoNode);
                 CheckBoardColumn();
                 CreateTetromino();
 
-                //Å×Æ®·Î¹Ì³ë »õ·Î Ãß°¡ Á÷ÈÄ ÀÌµ¿ °¡´É È®ÀÎ
+                //ï¿½ï¿½Æ®ï¿½Î¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
                 if (!CanMoveTo(tetrominoNode))
                 {
                     gameoverPanel.SetActive(true);
@@ -225,82 +253,82 @@ public class Stage : MonoBehaviour
         return true;
     }
 
-    // Å×Æ®·Î¹Ì³ë¸¦ º¸µå¿¡ Ãß°¡
+    // ï¿½ï¿½Æ®ï¿½Î¹Ì³ë¸¦ ï¿½ï¿½ï¿½å¿¡ ï¿½ß°ï¿½
     void AddToBoard(Transform root)
     {
         while (root.childCount > 0)
         {
             var node = root.GetChild(0);
 
-            //À¯´ÏÆ¼ ÁÂÇ¥°è¿¡¼­ Å×Æ®¸®½º ÁÂÇ¥°è·Î º¯È¯
+            //ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½Ç¥ï¿½è¿¡ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
             int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
 
-            //ºÎ¸ð³ëµå : Çà ³ëµå(y À§Ä¡), ¿ÀºêÁ§Æ® ÀÌ¸§ : x À§Ä¡
+            //ï¿½Î¸ï¿½ï¿½ï¿½ : ï¿½ï¿½ ï¿½ï¿½ï¿½(y ï¿½ï¿½Ä¡), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¸ï¿½ : x ï¿½ï¿½Ä¡
             node.parent = boardNode.Find(y.ToString());
             node.name = x.ToString();
         }
     }
 
-    // º¸µå¿¡ ¿Ï¼ºµÈ ÇàÀÌ ÀÖÀ¸¸é »èÁ¦
+    // ï¿½ï¿½ï¿½å¿¡ ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     void CheckBoardColumn()
     {
         bool isCleared = false;
 
-        //ÇÑ¹ø¿¡ »ç¶óÁø Çà °³¼ö È®ÀÎ¿ë
+        //ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½
         int linecount = 0;
 
-        // ¿Ï¼ºµÈ Çà == ÇàÀÇ ÀÚ½Ä °¹¼ö°¡ °¡·Î Å©±â
+        // ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ == ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
         foreach (Transform column in boardNode)
         {
             if (column.childCount == boardWidth)
             {
-                //ÇàÀÇ ¸ðµç ÀÚ½ÄÀ» »èÁ¦
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 foreach (Transform tile in column)
                 {
                     Destroy(tile.gameObject);
                 }
-                // ÇàÀÇ ¸ðµç ÀÚ½Äµé°úÀÇ ¿¬°á ²÷±â
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ú½Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 column.DetachChildren();
                 isCleared = true;
-                linecount++; // ¿Ï¼ºµÈ Çà ÇÏ³ª´ç linecount Áõ°¡
+                linecount++; // ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ linecount ï¿½ï¿½ï¿½ï¿½
             }
         }
-        // ¿Ï¼ºµÈ ÇàÀÌ ÀÖÀ»°æ¿ì Á¡¼öÁõ°¡
+        // ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (linecount != 0)
         {
             scoreVal += linecount * linecount * 100;
             score.text = "" + scoreVal;
         }
 
-        // ¿Ï¼ºµÈ ÇàÀÌ ÀÖÀ»°æ¿ì ³²Àº¶óÀÎ °¨¼Ò
+        // ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (linecount != 0)
         {
             lineVal -= linecount;
-            // ·¹º§¾÷±îÁö ÇÊ¿ä ¶óÀÎ µµ´Þ°æ¿ì (ÃÖ´ë ·¹º§ 10À¸·Î ÇÑÁ¤)
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Þ°ï¿½ï¿½ (ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
             if (lineVal <= 0 && levelVal <= 10)
             {
-                levelVal += 1;  // ·¹º§Áõ°¡
-                lineVal = levelVal * 2 + lineVal;   // ³²Àº ¶óÀÎ °»½Å
-                fallCycle = 0.08f * (10 - levelVal); // ¼Óµµ Áõ°¡
+                levelVal += 1;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                lineVal = levelVal * 2 + lineVal;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                fallCycle = 0.08f * (10 - levelVal); // ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
             }
             level.text = "" + levelVal;
             line.text = "" + lineVal;
         }
 
-        // ºñ¾î ÀÖ´Â ÇàÀÌ Á¸ÀçÇÏ¸é ¾Æ·¡·Î ³»¸®±â
+        // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (isCleared)
         {
-            //°¡Àå ¹Ù´Ú ÇàÀº ³»¸± ÇÊ¿ä°¡ ¾øÀ¸¹Ç·Î index 1 ºÎÅÍ for¹® ½ÃÀÛ
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ index 1 ï¿½ï¿½ï¿½ï¿½ forï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             for (int i = 1; i < boardNode.childCount; ++i)
             {
                 var column = boardNode.Find(i.ToString());
 
-                // ÀÌ¹Ì ºñ¾î ÀÖ´Â ÇàÀº ¹«½Ã
+                // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (column.childCount == 0)
                     continue;
 
-                // ÇöÀç Çà ¾Æ·¡ÂÊ¿¡ ºó ÇàÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎ, ºó Çà¸¸Å­ emptyCol Áõ°¡
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½, ï¿½ï¿½ ï¿½à¸¸Å­ emptyCol ï¿½ï¿½ï¿½ï¿½
                 int emptyCol = 0;
                 int j = i - 1;
                 while (j >= 0)
@@ -312,7 +340,7 @@ public class Stage : MonoBehaviour
                     j--;
                 }
 
-                // ÇöÀç Çà ¾Æ·¡ÂÊ¿¡ ºó Çà Á¸Àç½Ã ¾Æ·¡·Î ³»¸²
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (emptyCol > 0)
                 {
                     var targetColumn = boardNode.Find((i - emptyCol).ToString());
@@ -329,23 +357,23 @@ public class Stage : MonoBehaviour
         }
     }
 
-    // ÀÌµ¿ °¡´ÉÇÑÁö Ã¼Å© ÈÄ True or False ¹ÝÈ¯ÇÏ´Â ¸Þ¼­µå
-    bool CanMoveTo(Transform root)  // tetrominoNode¸¦ ¸Å°³º¯¼ö root·Î °¡Á®¿À±â
+    // ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ True or False ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
+    bool CanMoveTo(Transform root)  // tetrominoNodeï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ rootï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        // tetrominoNodeÀÇ ÀÚ½Ä Å¸ÀÏÀ» ¸ðµÎ °Ë»ç
+        // tetrominoNodeï¿½ï¿½ ï¿½Ú½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
         for (int i = 0; i < root.childCount; ++i)
         {
             var node = root.GetChild(i);
-            // À¯´ÏÆ¼ ÁÂÇ¥°è¿¡¼­ Å×Æ®¸®½º ÁÂÇ¥°è·Î º¯È¯
+            // ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½Ç¥ï¿½è¿¡ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
             int x = Mathf.RoundToInt(node.transform.position.x + halfWidth);
             int y = Mathf.RoundToInt(node.transform.position.y + halfHeight - 1);
-            // ÀÌµ¿ °¡´ÉÇÑ ÁÂÇ¥ÀÎÁö È®ÀÎ ÈÄ ¹ÝÈ¯
+            // ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯
             if (x < 1 || x > boardWidth)
                 return false;
             if (y < 0)
                 return false;
 
-            // ÀÌ¹Ì ´Ù¸¥ Å¸ÀÏÀÌ ÀÖ´ÂÁö È®ÀÎ
+            // ï¿½Ì¹ï¿½ ï¿½Ù¸ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
             var column = boardNode.Find(y.ToString());
 
             if (column != null && column.Find(x.ToString()) != null)
@@ -354,26 +382,26 @@ public class Stage : MonoBehaviour
         return true;
     }
 
-    // Å¸ÀÏ »ý¼º
+    // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     Tile CreateTile(Transform parent, Vector2 position, Color color, int order = 1)
     {
-        var go = Instantiate(tilePrefab); // tilePrefab¸¦ º¹Á¦ÇÑ ¿ÀºêÁ§Æ® »ý¼º
-        go.transform.parent = parent; // ºÎ¸ð ÁöÁ¤
-        go.transform.localPosition = position; // À§Ä¡ ÁöÁ¤
+        var go = Instantiate(tilePrefab); // tilePrefabï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+        go.transform.parent = parent; // ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        go.transform.localPosition = position; // ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 
-        var tile = go.GetComponent<Tile>(); // tilePrefabÀÇ Tile½ºÅ©¸³Æ® ºÒ·¯¿À±â
-        tile.color = color; // »ö»ó ÁöÁ¤
-        tile.sortingOrder = order; // ¼ø¼­ ÁöÁ¤
+        var tile = go.GetComponent<Tile>(); // tilePrefabï¿½ï¿½ Tileï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
+        tile.color = color; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        tile.sortingOrder = order; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         return tile;
     }
-    // ¹è°æ Å¸ÀÏÀ» »ý¼º
+    // ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     void CreateBackground()
     {
-        Color color = Color.gray;   // ¹è°æ »ö ¼³Á¤(¿øÇÏ´Â »öÀ¸·Î ¼³Á¤ °¡´É)
+        Color color = Color.gray;   // ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
-        // Å¸ÀÏ º¸µå
-        color.a = 0.6f; // Å×µÎ¸®¿Í ±¸ºÐ À§ÇØ Åõ¸íµµ ¹Ù²Ù±â
+        // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        color.a = 0.6f; // ï¿½×µÎ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù±ï¿½
         for (int x = -halfWidth; x < halfWidth + 1; ++x)
         {
             for (int y = halfHeight; y > -halfHeight; --y)
@@ -382,7 +410,7 @@ public class Stage : MonoBehaviour
             }
         }
 
-        // ÁÂ¿ì Å×µÎ¸®
+        // ï¿½Â¿ï¿½ ï¿½×µÎ¸ï¿½
         color.a = 1.0f;
         for (int y = halfHeight; y > -halfHeight; --y)
         {
@@ -390,7 +418,7 @@ public class Stage : MonoBehaviour
             CreateTile(backgroundNode, new Vector2(halfWidth + 1, y), color, 0);
         }
 
-        // ¾Æ·¡ Å×µÎ¸®
+        // ï¿½Æ·ï¿½ ï¿½×µÎ¸ï¿½
         for (int x = -halfWidth; x <= halfWidth + 1; ++x)
         {
             CreateTile(backgroundNode, new Vector2(x, -halfHeight), color, 0);
@@ -399,7 +427,7 @@ public class Stage : MonoBehaviour
 
     void CreatePreview()
     {
-        // ÀÌ¹Ì ÀÖ´Â ¹Ì¸®º¸±â »èÁ¦ÇÏ±â
+        // ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
         foreach (Transform tile in previewNode)
         {
             Destroy(tile.gameObject);
@@ -410,13 +438,13 @@ public class Stage : MonoBehaviour
 
         Color32 color = Color.white;
 
-        // ¹Ì¸®º¸±â Å×Æ®·Î¹Ì³ë »ý¼º À§Ä¡
+        // ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Î¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
         previewNode.position = new Vector2(-halfWidth - 3, halfHeight - 4);
 
         switch (indexVal)
         {
             case 0: // I
-                color = new Color32(115, 251, 253, 255);    // ÇÏ´Ã»ö
+                color = new Color32(115, 251, 253, 255);    // ï¿½Ï´Ã»ï¿½
                 CreateTile(previewNode, new Vector2(0f, 2.0f), color);
                 CreateTile(previewNode, new Vector2(0f, 1.0f), color);
                 CreateTile(previewNode, new Vector2(0f, 0.0f), color);
@@ -424,7 +452,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 1: // J
-                color = new Color32(0, 33, 245, 255);    // ÆÄ¶õ»ö
+                color = new Color32(0, 33, 245, 255);    // ï¿½Ä¶ï¿½ï¿½ï¿½
                 CreateTile(previewNode, new Vector2(-1f, 0.0f), color);
                 CreateTile(previewNode, new Vector2(0f, 0.0f), color);
                 CreateTile(previewNode, new Vector2(1f, 0.0f), color);
@@ -432,7 +460,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 2: // L
-                color = new Color32(243, 168, 59, 255);    // ÁÖÈ²»ö
+                color = new Color32(243, 168, 59, 255);    // ï¿½ï¿½È²ï¿½ï¿½
                 CreateTile(previewNode, new Vector2(-1f, 0.0f), color);
                 CreateTile(previewNode, new Vector2(0f, 0.0f), color);
                 CreateTile(previewNode, new Vector2(1f, 0.0f), color);
@@ -440,7 +468,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 3: // O 
-                color = new Color32(255, 253, 84, 255);    // ³ë¶õ»ö
+                color = new Color32(255, 253, 84, 255);    // ï¿½ï¿½ï¿½ï¿½ï¿½
                 CreateTile(previewNode, new Vector2(0f, 0f), color);
                 CreateTile(previewNode, new Vector2(1f, 0f), color);
                 CreateTile(previewNode, new Vector2(0f, 1f), color);
@@ -448,7 +476,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 4: //  S
-                color = new Color32(117, 250, 76, 255);    // ³ì»ö
+                color = new Color32(117, 250, 76, 255);    // ï¿½ï¿½ï¿½
                 CreateTile(previewNode, new Vector2(-1f, -1f), color);
                 CreateTile(previewNode, new Vector2(0f, -1f), color);
                 CreateTile(previewNode, new Vector2(0f, 0f), color);
@@ -456,7 +484,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 5: //  T
-                color = new Color32(155, 47, 246, 255);    // ÀÚÁÖ»ö
+                color = new Color32(155, 47, 246, 255);    // ï¿½ï¿½ï¿½Ö»ï¿½
                 CreateTile(previewNode, new Vector2(-1f, 0f), color);
                 CreateTile(previewNode, new Vector2(0f, 0f), color);
                 CreateTile(previewNode, new Vector2(1f, 0f), color);
@@ -464,7 +492,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 6: // Z
-                color = new Color32(235, 51, 35, 255);    // »¡°£»ö
+                color = new Color32(235, 51, 35, 255);    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 CreateTile(previewNode, new Vector2(-1f, 1f), color);
                 CreateTile(previewNode, new Vector2(0f, 1f), color);
                 CreateTile(previewNode, new Vector2(0f, 0f), color);
@@ -473,30 +501,30 @@ public class Stage : MonoBehaviour
         }
     }
 
-    // Å×Æ®·Î¹Ì³ë »ý¼º
+    // ï¿½ï¿½Æ®ï¿½Î¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½
     void CreateTetromino()
     {
-        //Á¦ÀÏ Ã³À½¿¡ ³ª¿À´Â Å×Æ®·Î¹Ì³ëÀÎ°æ¿ì
+        //ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Î¹Ì³ï¿½ï¿½Î°ï¿½ï¿½
         int index;
         if (indexVal == -1)
         {
-            index = Random.Range(0, 7); // ·£´ýÀ¸·Î 0~6 »çÀÌÀÇ °ª »ý¼º
+            index = Random.Range(0, 7); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0~6 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
-        else index = indexVal;  // PreviewÀÇ °ª °¡Á®¿À±â     
+        else index = indexVal;  // Previewï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½     
 
         Color32 color = Color.white;
 
-        // È¸Àü °è»ê¿¡ »ç¿ëÇÏ±â À§ÇÑ ÄõÅÍ´Ï¾ð Å¬·¡½º
+        // È¸ï¿½ï¿½ ï¿½ï¿½ê¿¡ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í´Ï¾ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
         tetrominoNode.rotation = Quaternion.identity;
-        // Å×Æ®·Î¹Ì³ë »ý¼º À§Ä¡ (Áß¾Ó »ó´Ü), °ª º¸Á¤ Àû¿ë
+        // ï¿½ï¿½Æ®ï¿½Î¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ (ï¿½ß¾ï¿½ ï¿½ï¿½ï¿½), ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         tetrominoNode.position = new Vector2(offset_x, halfHeight + offset_y);
 
         switch (index)
         {
-            // ±¸ºÐÀ» À§ÇØ Å×Æ®¸®½º ¸ð¾ç¿¡ ºñ½ÁÇÏ°Ô ¿µ¾î·Î Ç¥Çö (I, J, L ,O, S, T, Z)
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ç¿¡ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ (I, J, L ,O, S, T, Z)
 
             case 0: // I
-                color = new Color32(112, 248, 224, 255);    // ÇÏ´Ã»ö
+                color = new Color32(112, 248, 224, 255);    // ï¿½Ï´Ã»ï¿½
                 CreateTile(tetrominoNode, new Vector2(-2f, 0.0f), color);
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), color);
@@ -504,7 +532,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 1: // J
-                color = new Color32(0, 73, 245, 255);    // ÆÄ¶õ»ö
+                color = new Color32(0, 73, 245, 255);    // ï¿½Ä¶ï¿½ï¿½ï¿½
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), color);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), color);
@@ -512,7 +540,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 2: // L
-                color = new Color32(243, 168, 59, 255);    // ÁÖÈ²»ö
+                color = new Color32(243, 168, 59, 255);    // ï¿½ï¿½È²ï¿½ï¿½
                 CreateTile(tetrominoNode, new Vector2(-1f, 0.0f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, 0.0f), color);
                 CreateTile(tetrominoNode, new Vector2(1f, 0.0f), color);
@@ -520,7 +548,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 3: // O 
-                color = new Color32(251, 230, 0, 255);    // ³ë¶õ»ö
+                color = new Color32(251, 230, 0, 255);    // ï¿½ï¿½ï¿½ï¿½ï¿½
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), color);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), color);
@@ -528,7 +556,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 4: //  S
-                color = new Color32(117, 250, 76, 255);    // ³ì»ö
+                color = new Color32(117, 250, 76, 255);    // ï¿½ï¿½ï¿½
                 CreateTile(tetrominoNode, new Vector2(-1f, -1f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, -1f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), color);
@@ -536,7 +564,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 5: //  T
-                color = new Color32(155, 47, 246, 255);    // ÀÚÁÖ»ö
+                color = new Color32(155, 47, 246, 255);    // ï¿½ï¿½ï¿½Ö»ï¿½
                 CreateTile(tetrominoNode, new Vector2(-1f, 0f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), color);
                 CreateTile(tetrominoNode, new Vector2(1f, 0f), color);
@@ -544,7 +572,7 @@ public class Stage : MonoBehaviour
                 break;
 
             case 6: // Z
-                color = new Color32(217, 49, 32, 255);    // »¡°£»ö
+                color = new Color32(217, 49, 32, 255);    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 CreateTile(tetrominoNode, new Vector2(-1f, 1f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, 1f), color);
                 CreateTile(tetrominoNode, new Vector2(0f, 0f), color);
